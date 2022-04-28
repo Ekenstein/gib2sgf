@@ -9,10 +9,9 @@ application {
 }
 
 plugins {
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.6.21"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("com.github.ben-manes.versions") version "0.42.0"
-    antlr
     application
 }
 
@@ -23,18 +22,20 @@ val junitVersion by extra("5.8.2")
 val kotlinVersion by extra("1.6.20")
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin", "kotlin-stdlib-jdk8", kotlinVersion)
-    antlr("org.antlr", "antlr4", "4.10")
+    implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx", "kotlinx-cli", "0.3.4")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter", "junit-jupiter-params", junitVersion)
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
-    implementation("com.github.ekenstein", "ktsgf", "0.1.0")
+    implementation("com.github.Ekenstein", "gibson", "0.1.3")
+    implementation("com.github.Ekenstein", "ktsgf", "0.1.1")
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
 }
 
@@ -63,14 +64,7 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
     }
 
-    generateGrammarSource {
-        outputDirectory = Paths
-            .get("build", "generated-src", "antlr", "main", "com", "github", "ekenstein", "gib2sgf", "gib", "parser")
-            .toFile()
-    }
-
     compileKotlin {
-        dependsOn(generateGrammarSource)
         kotlinOptions {
             jvmTarget = kotlinJvmTarget
             freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
@@ -78,7 +72,6 @@ tasks {
     }
 
     compileTestKotlin {
-        dependsOn(generateTestGrammarSource)
         kotlinOptions {
             jvmTarget = kotlinJvmTarget
             freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
@@ -111,7 +104,7 @@ tasks {
             attributes["Main-Class"] = application.mainClass
         }
 
-        from(configurations.runtimeClasspath.get().map {if (it.isDirectory) it else zipTree(it)})
+        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
         archiveFileName.set("${project.name}.jar")
     }
 }

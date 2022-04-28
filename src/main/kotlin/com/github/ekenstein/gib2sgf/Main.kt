@@ -1,16 +1,13 @@
 package com.github.ekenstein.gib2sgf
 
-import com.github.ekenstein.gib2sgf.gib.Gib
-import com.github.ekenstein.gib2sgf.gib.parser.from
-import com.github.ekenstein.sgf.Sgf
-import com.github.ekenstein.sgf.encode
-import com.github.ekenstein.sgf.encodeToString
+import com.github.ekenstein.gibson.Gib
+import com.github.ekenstein.gibson.parser.from
+import com.github.ekenstein.sgf.serialization.encode
+import com.github.ekenstein.sgf.serialization.encodeToString
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.required
 import java.nio.file.Path
-
-private val sgf: Sgf = Sgf { }
 
 fun main(args: Array<String>) {
     val parser = ArgParser("gib2sgf")
@@ -41,9 +38,9 @@ fun main(args: Array<String>) {
         outputFile.createNewFile()
 
         outputFile.outputStream().use {
-            sgf.encode(it, sgfGameTree)
+            sgfGameTree.encode(it)
         }
     } else {
-        println(sgf.encodeToString(sgfGameTree))
+        println(sgfGameTree.encodeToString())
     }
 }
