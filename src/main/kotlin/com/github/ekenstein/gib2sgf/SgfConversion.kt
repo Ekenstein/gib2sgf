@@ -39,7 +39,7 @@ fun Gib.toSgf(): SgfGameTree {
 private fun placeStone(editor: SgfEditor, move: Move): SgfEditor {
     val color = move.color.toSgf()
     return when (move) {
-        is Move.Point -> editor.placeStone(color, move.x, move.y)
+        is Move.Point -> editor.placeStone(color, move.x + 1, move.y + 1)
         is Move.Pass -> editor.pass(color)
     }
 }
