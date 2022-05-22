@@ -10,13 +10,13 @@ application {
 
 plugins {
     kotlin("jvm") version "1.6.21"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
     id("com.github.ben-manes.versions") version "0.42.0"
     application
 }
 
 group = "com.github.ekenstein"
-version = "0.1.0"
+version = "0.1.1"
 val kotlinJvmTarget = "1.8"
 val junitVersion by extra("5.8.2")
 val kotlinVersion by extra("1.6.20")
@@ -35,7 +35,7 @@ dependencies {
     testImplementation("org.junit.jupiter", "junit-jupiter-params", junitVersion)
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
     implementation("com.github.Ekenstein", "gibson", "0.1.3")
-    implementation("com.github.Ekenstein", "ktsgf", "0.1.1")
+    implementation("com.github.Ekenstein", "haengma", "2.0.1")
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
 }
 
