@@ -34,8 +34,8 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter", "junit-jupiter-params", junitVersion)
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
-    implementation("com.github.Ekenstein", "gibson", "0.1.3")
-    implementation("com.github.Ekenstein", "haengma", "2.0.1")
+    implementation("com.github.Ekenstein", "gibson", "0.1.4")
+    implementation("com.github.Ekenstein", "haengma", "2.2.0")
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
 }
 

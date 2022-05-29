@@ -24,11 +24,20 @@ private fun GameResult.toSgf() = when (this) {
 
 fun Gib.toSgf(): SgfGameTree {
     val editor = SgfEditor {
-        rules.boardSize = 19
-        rules.komi = komi ?: 0.0
-        rules.handicap = handicap
-        blackPlayer.name = playerBlack
-        whitePlayer.name = playerWhite
+        rules {
+            boardSize = 19
+            komi = this@toSgf.komi ?: 0.0
+            handicap = this@toSgf.handicap
+        }
+
+        whitePlayer {
+            name = playerBlack
+        }
+
+        blackPlayer {
+            name = playerBlack
+        }
+
         result = gameResult?.toSgf()
         gamePlace = this@toSgf.gamePlace
     }
